@@ -10,12 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 var services = builder.Services;
-var provider = services?.BuildServiceProvider();
-var configuration = provider?.GetRequiredService<IConfiguration>();
-services?.AddPooledDbContextFactory<AppDbContext>(
-                    opt => opt.UseSqlServer(configuration?.GetConnectionString("CommandConnStr"))
+var provider = services.BuildServiceProvider();
+var configuration = provider.GetRequiredService<IConfiguration>();
+services.AddPooledDbContextFactory<AppDbContext>(
+                    opt => opt.UseSqlServer(configuration.GetConnectionString("CommandConnStr"))
                     );
-services?
+services
     .AddGraphQLServer()
     .AddQueryType<Query>()
     .AddType<PlatformType>()
